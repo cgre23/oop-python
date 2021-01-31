@@ -39,12 +39,17 @@ class Bike:
 
     def sell(self):
         self.sold = True
-        profit = self.sale_price - self.cost
-        return profit
+        return self.profit
 
     @property
     def profit(self):
+        if not self.sold:
+            return None
         return self.sale_price - self.cost
+
+    @classmethod
+    def get_default_bike(cls):
+        return cls('default', Condition.GOOD, 100)
 
     def service(self, cost=0, new_condition=None, new_sale_price=None):
         self.cost += cost
@@ -61,15 +66,15 @@ class Bike:
 
 
 class Tricycle(Bike):
-    num_wheels = 3
+
+    def __str__(self):
+        return f"Tricycle: {self.description}"
 
 
 if __name__ == '__main__':
     my_bike = Bike("2002 Raleigh", Condition.GOOD, 200)
-    assert Bike.counter == 1
-    bike_2 = Tricycle("tri 2", Condition.BAD, 300)
-    print(my_bike.num_wheels)
-    print(bike_2.num_wheels)
+    bike_2 = Tricycle.get_default_bike
+    print(bike_2())
 
     my_bike.service(cost=30, new_sale_price=300)
     my_bike.update_sale_price(100)
