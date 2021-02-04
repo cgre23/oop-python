@@ -69,5 +69,5 @@ if __name__ == '__main__':
     print(bike.sale_price)  # 300
 
     bike.sell()
-    bike.sale_price = 200   # Exception raised
+    #bike.sale_price = 200   # Exception raised
 
